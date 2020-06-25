@@ -25,6 +25,7 @@ public class Algorithm implements IAlgorithm {
         Map files = new HashMap();
         files.put("link","mylink");
         simpleInput.put("files",files);
+        simpleInput.put("data",data);
       //  hkubeAPI.startStoredPipeLine("simple",simpleInput);
         INode node = new INode() {
             @Override
