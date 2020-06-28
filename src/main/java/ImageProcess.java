@@ -31,13 +31,25 @@ public class ImageProcess implements IAlgorithm {
        // Map files = new HashMap();
 
         JSONObject inputData = (JSONObject) input.get(0);
-        String aa = (String) inputData.get("url");
+        String url = (String) inputData.get("url");
+        data.put("imageURL", url);
+        MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
 
-        data.put("The url from input is", aa);
-      //  files.put("link","mylink");
-      //  results.put("files",files);
+        System.out.println(image.colourSpace);
+
+        data.put("imageColourSpace", image.colourSpace);
+        data.put("image", image.toByteImage());
+        MBFImage clone = image.clone();
+        for (int y=0; y<image.getHeight(); y++) {
+            for(int x=0; x<image.getWidth(); x++) {
+                clone.getBand(1).pixels[y][x] = 0;
+                clone.getBand(2).pixels[y][x] = 0;
+            }
+        }
+        data.put("clone", clone.toByteImage());
+
         results.put("data",data);
-        //  hkubeAPI.startStoredPipeLine("simple",results);
+
 
 
 
