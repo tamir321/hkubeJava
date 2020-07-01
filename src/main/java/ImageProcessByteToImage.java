@@ -117,18 +117,19 @@ public class ImageProcessByteToImage implements IAlgorithm {
 
     public static void printJsonObject(JSONObject jsonObj) {
         Gson gson = new Gson();
-        int i=0;
+
         jsonObj.keySet().forEach(keyStr ->
         {
-            System.out.println("i = "+i );
+
             Object keyValue = jsonObj.get(keyStr);
             String dataJsonString = gson.toJson(keyValue);
             System.out.println("key: "+ keyStr + " value size: " + String.valueOf(dataJsonString.length()));
             try{
+                System.out.println("Try to get "+ keyStr + "child");
                 printJsonObject((JSONObject) keyValue);
             }
-            catch (JSONException e){
-                System.out.println("JSONException e-"+e);
+            catch (Exception e){
+                System.out.println("end of "+ keyStr );
             }
 
         });
