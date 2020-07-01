@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.Gson;
@@ -39,10 +40,10 @@ public class ImageProcessByteToImage implements IAlgorithm {
     }
 
     @Override
-    public JSONObject Start(JSONArray input, IHKubeAPI hkubeAPI) throws Exception {
+    public JSONObject Start(Collection input, IHKubeAPI hkubeAPI) throws Exception {
         Gson gson = new Gson();
         JSONObject results = new JSONObject();
-        JSONObject inputData = (JSONObject) input.get(0);//.get("data");
+        JSONObject inputData = (JSONObject) input.iterator().next();
         System.out.println("++++++++++++++++++");
         System.out.println("inputData");
         printJsonObject(inputData);

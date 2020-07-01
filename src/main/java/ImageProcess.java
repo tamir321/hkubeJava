@@ -14,6 +14,7 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,12 +26,12 @@ public class ImageProcess implements IAlgorithm {
     }
 
     @Override
-    public JSONObject Start(JSONArray input, IHKubeAPI hkubeAPI) throws Exception {
+    public JSONObject Start(Collection input, IHKubeAPI hkubeAPI) throws Exception {
         Map<String, Object> data = new HashMap<>();
         JSONObject results = new JSONObject();
        // Map files = new HashMap();
 
-        JSONObject inputData = (JSONObject) input.get(0);
+        JSONObject inputData = (JSONObject) input.iterator().next();
         String url = (String) inputData.get("url");
         data.put("imageURL", url);
         MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
