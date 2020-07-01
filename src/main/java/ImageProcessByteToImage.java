@@ -23,60 +23,48 @@ public class ImageProcessByteToImage implements IAlgorithm {
 
     }
 
+    public JSONObject getJsonObjectChild(JSONObject  inputData ,String childName){
+        Gson gson = new Gson();
+        try{
+
+            Object  dataObj =  inputData.get(childName);
+            String objString =  gson.toJson(dataObj);
+            JSONObject dataJson = new JSONObject(objString);
+            return dataJson;
+        }
+        catch (Exception e){
+            System.out.println("Fail to get " + childName);
+        }
+        return null;
+    }
+
     @Override
     public JSONObject Start(JSONArray input, IHKubeAPI hkubeAPI) throws Exception {
+        Gson gson = new Gson();
+        JSONObject results = new JSONObject();
         JSONObject inputData = (JSONObject) input.get(0);//.get("data");
+        System.out.println("++++++++++++++++++");
         System.out.println("inputData");
         printJsonObject(inputData);
-        System.out.println("++++++++++++++++++");
-        Object  dataObj =  inputData.get("data");
-        Gson gson = new Gson();
-        String dataJsonString = gson.toJson(dataObj);
+        System.out.println("==================");
 
-        JSONObject dataJson = new JSONObject(dataJsonString);
-        System.out.println("dataJson");
-        printJsonObject(dataJson);
-        System.out.println("++++++++++++++++++");
-//        byte [] imageByte = (byte[]) dataJson.get("image") ;
-//      byte [] cloneByte = (byte[]) dataJson.get("clone");
+        JSONObject dataJson = getJsonObjectChild(inputData , "data");
 
-//        System.out.println("imageByte.length - "+imageByte.length);
-//        System.out.println("cloneByte.length - "+cloneByte.length);
-//
-//        ByteArrayInputStream bisImage = new ByteArrayInputStream(imageByte);
-//        MBFImage image12 = ImageUtilities.readMBF(bisImage);
-//
-//
-//        ByteArrayInputStream bisClone = new ByteArrayInputStream(cloneByte);
-//        MBFImage image11 = ImageUtilities.readMBF(bisClone);
-//
-//
-//        Map<String, Object> data = new HashMap<>();
-        JSONObject results = new JSONObject();
-//       // Map files = new HashMap();
-//
-//
-//        String url = (String) inputData.get("url");
-//        data.put("imageURL", url);
-//        //MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
-//
-//        System.out.println(image12.colourSpace);
-//
-//        data.put("imageColourSpace", image12.colourSpace);
-//        data.put("image", image12.toByteImage());
-//
-//
-//        boolean retval = Arrays.equals(imageByte, image12.toByteImage());
+       // JSONObject imageJson = getJsonObjectChild(dataJson , "image");
+      //  JSONObject clonJson = getJsonObjectChild(dataJson , "clone");
+      //  JSONObject urlJson = getJsonObjectChild(dataJson , "imageURL");
 
+        String url = dataJson.getString("imageURL");
+        System.out.println("url = "+url);
+        byte [] imageByte = dataJson.getString("image").getBytes();
 
-//        MBFImage clone1 = image.clone();
-//        for (int y=0; y<image.getHeight(); y++) {
-//            for(int x=0; x<image.getWidth(); x++) {
-//                clone1.getBand(1).pixels[y][x] = 0;
-//                clone1.getBand(2).pixels[y][x] = 0;
-//            }
-//        }
-//        data.put("clone", clone1.toByteImage());
+        ByteArrayInputStream bisImage = new ByteArrayInputStream(imageByte);
+        MBFImage imageFromArray = ImageUtilities.readMBF(bisImage);
+
+        MBFImage image = ImageUtilities.readMBF(new URL(url));
+
+        boolean retval = Arrays.equals(imageFromArray.toByteImage(), image.toByteImage());
+        System.out.println("retval = "+retval);
 
         results.put("data","data");
 
