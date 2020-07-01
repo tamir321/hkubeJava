@@ -25,10 +25,17 @@ public class ImageProcessByteToImage implements IAlgorithm {
     @Override
     public JSONObject Start(JSONArray input, IHKubeAPI hkubeAPI) throws Exception {
         JSONObject inputData = (JSONObject) input.get(0);//.get("data");
+        System.out.println("inputData");
+        printJsonObject(inputData);
+        System.out.println("++++++++++++++++++");
         Object  dataObj =  inputData.get("data");
         Gson gson = new Gson();
         String dataJsonString = gson.toJson(dataObj);
+
         JSONObject dataJson = new JSONObject(dataJsonString);
+        System.out.println("dataJson");
+        printJsonObject(dataJson);
+        System.out.println("++++++++++++++++++");
         byte [] imageByte = (byte[]) dataJson.get("image") ;
         byte [] cloneByte = (byte[]) dataJson.get("clone");
 
@@ -103,6 +110,19 @@ public class ImageProcessByteToImage implements IAlgorithm {
 
         return results;
     }
+
+
+    public static void printJsonObject(JSONObject jsonObj) {
+        Gson gson = new Gson();
+        jsonObj.keySet().forEach(keyStr ->
+        {
+            Object keyvalue = jsonObj.get(keyStr);
+            String dataJsonString = gson.toJson(keyvalue);
+            System.out.println("key: "+ keyStr + " value size: " + String.valueOf(dataJsonString.length()));
+
+        });
+    }
+
 
     @Override
     public void Stop() {
