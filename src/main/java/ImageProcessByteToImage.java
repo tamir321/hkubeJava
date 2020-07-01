@@ -62,9 +62,8 @@ public class ImageProcessByteToImage implements IAlgorithm {
         MBFImage imageFromArray = ImageUtilities.readMBF(bisImage);
 
         MBFImage image = ImageUtilities.readMBF(new URL(url));
-
-        boolean retval = Arrays.equals(imageFromArray.toByteImage(), image.toByteImage());
-        System.out.println("retval = "+retval);
+        boolean compare = Arrays.equals(imageFromArray.toByteImage(), image.toByteImage());
+        System.out.println("compare = "+ compare);
 
         results.put("data","data");
 
