@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import com.google.gson.Gson;
 
 public class ImageProcessByteToImage implements IAlgorithm {
 
@@ -24,9 +25,12 @@ public class ImageProcessByteToImage implements IAlgorithm {
     @Override
     public JSONObject Start(JSONArray input, IHKubeAPI hkubeAPI) throws Exception {
         JSONObject inputData = (JSONObject) input.get(0);//.get("data");
-        JSONObject  inputDataMap = (JSONObject) inputData.get("data");
-        byte [] imageByte = (byte[]) inputDataMap.get("image") ;
-        byte [] cloneByte = (byte[]) inputDataMap.get("clone");
+        Object  dataObj =  inputData.get("data");
+        Gson gson = new Gson();
+        String dataJsonString = gson.toJson(dataObj);
+        JSONObject dataJson = new JSONObject(dataJsonString);
+        byte [] imageByte = (byte[]) dataJson.get("image") ;
+        byte [] cloneByte = (byte[]) dataJson.get("clone");
 
         System.out.println("imageByte.length - "+imageByte.length);
         System.out.println("cloneByte.length - "+cloneByte.length);
