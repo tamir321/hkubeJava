@@ -24,7 +24,7 @@ public class ImageProcessByteToImage implements IAlgorithm {
     @Override
     public JSONObject Start(JSONArray input, IHKubeAPI hkubeAPI) throws Exception {
         JSONObject inputData = (JSONObject) input.get(0);//.get("data");
-        Map<String, Object>  inputDataMap = (Map<String, Object>) inputData.get("data");
+        JSONObject  inputDataMap = (JSONObject) inputData.get("data");
         byte [] imageByte = (byte[]) inputDataMap.get("image") ;
         byte [] cloneByte = (byte[]) inputDataMap.get("clone");
 
