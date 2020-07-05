@@ -30,8 +30,8 @@ public class ImageProcessByteToImage implements IAlgorithm {
     public Map Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
         Gson gson = new Gson();
         Map results = new HashMap();
-        // System.out.println(new JSONObject(args));
-        printJsonObject(new JSONObject(args));
+        System.out.println(new JSONObject(args));
+//        printJsonObject(new JSONObject(args));
 //        Map input=(Map) ((Collection)args.get("input")).iterator().next();
 //
 //
