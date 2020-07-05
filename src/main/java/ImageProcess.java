@@ -31,7 +31,7 @@ public class ImageProcess implements IAlgorithm {
         Map results = new HashMap();
        // Map files = new HashMap();
         Collection input = (Collection)args.get("input");
-        JSONObject inputData = (JSONObject) input.iterator().next();
+        Map inputData = (Map) input.iterator().next();
         String url = (String) inputData.get("url");
         results.put("imageURL", url);
         MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
