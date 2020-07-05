@@ -21,25 +21,25 @@ import java.util.Map;
 public class ImageProcess implements IAlgorithm {
 
     @Override
-    public void Init(JSONObject args) {
+    public void Init(Map args) {
 
     }
 
     @Override
-    public JSONObject Start(Collection input, IHKubeAPI hkubeAPI) throws Exception {
-        Map<String, Object> data = new HashMap<>();
-        JSONObject results = new JSONObject();
+    public Map Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
+      //  Map<String, Object> data = new HashMap<>();
+        Map results = new HashMap();
        // Map files = new HashMap();
-
+        Collection input = (Collection)args.get("input");
         JSONObject inputData = (JSONObject) input.iterator().next();
         String url = (String) inputData.get("url");
-        data.put("imageURL", url);
+        results.put("imageURL", url);
         MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
 
         System.out.println(image.colourSpace);
 
-        data.put("imageColourSpace", image.colourSpace);
-        data.put("image", image.toByteImage());
+        results.put("imageColourSpace", image.colourSpace);
+        results.put("image", image.toByteImage());
         MBFImage clone = image.clone();
         for (int y=0; y<image.getHeight(); y++) {
             for(int x=0; x<image.getWidth(); x++) {
@@ -47,9 +47,9 @@ public class ImageProcess implements IAlgorithm {
                 clone.getBand(2).pixels[y][x] = 0;
             }
         }
-        data.put("clone", clone.toByteImage());
+        results.put("clone", clone.toByteImage());
 
-        results.put("data",data);
+       // results.put("data",data);
 
 
 

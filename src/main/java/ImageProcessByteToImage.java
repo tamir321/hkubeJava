@@ -20,44 +20,21 @@ import com.google.gson.Gson;
 public class ImageProcessByteToImage implements IAlgorithm {
 
     @Override
-    public void Init(JSONObject args) {
+    public void Init(Map args) {
 
     }
 
-    public JSONObject getJsonObjectChild(JSONObject  inputData ,String childName){
-        Gson gson = new Gson();
-        try{
-
-            Object  dataObj =  inputData.get(childName);
-            String objString =  gson.toJson(dataObj);
-            JSONObject dataJson = new JSONObject(objString);
-            return dataJson;
-        }
-        catch (Exception e){
-            System.out.println("Fail to get " + childName);
-        }
-        return null;
-    }
 
     @Override
-    public JSONObject Start(Collection input, IHKubeAPI hkubeAPI) throws Exception {
+    public Map Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
         Gson gson = new Gson();
-        JSONObject results = new JSONObject();
-        JSONObject inputData = (JSONObject) input.iterator().next();
-        System.out.println("++++++++++++++++++");
-        System.out.println("inputData");
-        printJsonObject(inputData);
-        System.out.println("==================");
+        Map results = new HashMap();
+        Map input=(Map) ((Collection)args.get("input")).iterator().next();
 
-        JSONObject dataJson = getJsonObjectChild(inputData , "data");
 
-       // JSONObject imageJson = getJsonObjectChild(dataJson , "image");
-      //  JSONObject clonJson = getJsonObjectChild(dataJson , "clone");
-      //  JSONObject urlJson = getJsonObjectChild(dataJson , "imageURL");
-
-        String url = dataJson.getString("imageURL");
+        String url =(String) input.get("imageURL");
         System.out.println("url = "+url);
-        byte [] imageByte = dataJson.getString("image").getBytes();
+        byte [] imageByte =( byte [])input.get("image");//.toString().getBytes();
 
         ByteArrayInputStream bisImage = new ByteArrayInputStream(imageByte);
         MBFImage imageFromArray = ImageUtilities.readMBF(bisImage);
@@ -65,7 +42,7 @@ public class ImageProcessByteToImage implements IAlgorithm {
         MBFImage image = ImageUtilities.readMBF(new URL(url));
         boolean compare = Arrays.equals(imageFromArray.toByteImage(), image.toByteImage());
         System.out.println("compare = "+ compare);
-
+        results.put("compare",compare);
         results.put("data","data");
 
 
@@ -97,7 +74,7 @@ public class ImageProcessByteToImage implements IAlgorithm {
 
             }
         };
-        INode[] nodes ={node};
+
 
         return results;
     }
