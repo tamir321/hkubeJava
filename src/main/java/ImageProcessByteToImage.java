@@ -1,3 +1,4 @@
+import com.google.gson.JsonObject;
 import hkube.algo.wrapper.IAlgorithm;
 import hkube.api.IHKubeAPI;
 import hkube.api.INode;
@@ -29,20 +30,22 @@ public class ImageProcessByteToImage implements IAlgorithm {
     public Map Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
         Gson gson = new Gson();
         Map results = new HashMap();
-        Map input=(Map) ((Collection)args.get("input")).iterator().next();
-
-
-        String url =(String) input.get("imageURL");
-        System.out.println("url = "+url);
-        byte [] imageByte =( byte [])input.get("image");//.toString().getBytes();
-
-        ByteArrayInputStream bisImage = new ByteArrayInputStream(imageByte);
-        MBFImage imageFromArray = ImageUtilities.readMBF(bisImage);
-
-        MBFImage image = ImageUtilities.readMBF(new URL(url));
-        boolean compare = Arrays.equals(imageFromArray.toByteImage(), image.toByteImage());
-        System.out.println("compare = "+ compare);
-        results.put("compare",compare);
+        // System.out.println(new JSONObject(args));
+        printJsonObject(new JSONObject(args));
+//        Map input=(Map) ((Collection)args.get("input")).iterator().next();
+//
+//
+//        String url =(String) input.get("imageURL");
+//        System.out.println("url = "+url);
+//        byte [] imageByte =( byte [])input.get("image");//.toString().getBytes();
+//
+//        ByteArrayInputStream bisImage = new ByteArrayInputStream(imageByte);
+//        MBFImage imageFromArray = ImageUtilities.readMBF(bisImage);
+//
+//        MBFImage image = ImageUtilities.readMBF(new URL(url));
+//        boolean compare = Arrays.equals(imageFromArray.toByteImage(), image.toByteImage());
+//        System.out.println("compare = "+ compare);
+//        results.put("compare",compare);
         results.put("data","data");
 
 
