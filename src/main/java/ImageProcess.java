@@ -11,13 +11,13 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
+//{"url":"https://chandra.harvard.edu/graphics/resources/desktops/2006/crab_1680.jpg","returnImge":true}
+//{"url":"https://tinyjpg.com/images/social/website.jpg","returnImge":"true"}
 public class ImageProcess implements IAlgorithm {
 
     @Override
@@ -34,6 +34,7 @@ public class ImageProcess implements IAlgorithm {
         Map inputData = (Map) input.iterator().next();
         String url = (String) inputData.get("url");
         Boolean returnImge = (Boolean) inputData.get("returnImge") ;
+        Boolean red = (Boolean) inputData.get("red") ;
 
         results.put("imageURL", url);
         MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
@@ -83,8 +84,22 @@ public class ImageProcess implements IAlgorithm {
             }
         };
         INode[] nodes ={node};
+        MBFImage outputImage = image;
+        if(red){
+            outputImage = clone;
+        }
         if(returnImge){
-            return clone.toByteImage();
+          //  DisplayUtilities.display(outputImage);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+            ImageUtilities.write(outputImage,"jpeg",os);
+            byte[] outputbytes = os.toByteArray();
+        //    FileOutputStream fs = new FileOutputStream("blackwhite.jpg");
+         //   fs.write(outputbytes);
+
+
+            //byte[] dd = n clone.toByteImage();
+            return outputbytes;
         }
         return results;
     }
