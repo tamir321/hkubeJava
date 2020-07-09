@@ -26,13 +26,15 @@ public class ImageProcess implements IAlgorithm {
     }
 
     @Override
-    public Map Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
+    public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
       //  Map<String, Object> data = new HashMap<>();
         Map results = new HashMap();
        // Map files = new HashMap();
         Collection input = (Collection)args.get("input");
         Map inputData = (Map) input.iterator().next();
         String url = (String) inputData.get("url");
+        Boolean returnImge = (Boolean) inputData.get("returnImge") ;
+
         results.put("imageURL", url);
         MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
 
@@ -81,7 +83,9 @@ public class ImageProcess implements IAlgorithm {
             }
         };
         INode[] nodes ={node};
-
+        if(returnImge){
+            return clone.toByteImage();
+        }
         return results;
     }
 
