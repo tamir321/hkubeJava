@@ -35,13 +35,9 @@ public class randAlg implements IAlgorithm {
         return  results;
 
     }
-    @Override
-    public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
 
-
-        Collection input = (Collection)args.get("input");
-
-        Object inp =  input.iterator().next();
+    private Object createRand(Object input){
+        Object inp =  input;
 
         if(inp instanceof  Integer){
             randArray((Integer) inp);
@@ -53,8 +49,17 @@ public class randAlg implements IAlgorithm {
             int rand =  r.nextInt(10 + 1);
             int s;
             if(rand>5){
-                s = ((ArrayList) inp).stream().mapToInt(n -> (int) n).sum();
-               return s;
+                if(((ArrayList) inp).get(0) instanceof ArrayList){
+                    s = ((ArrayList) ((ArrayList) inp).get(0)).stream().mapToInt(n -> (int) n).sum();
+                }
+                else {
+                    s = ((ArrayList) inp).stream().mapToInt(n -> (int) n).sum();
+                }
+
+                return s;
+            }
+            if(((ArrayList) inp).get(0) instanceof ArrayList ){
+                return createRand(((ArrayList) inp).get(0));
             }
             return randArray((int) ((ArrayList) inp).get(0));
 
@@ -71,6 +76,16 @@ public class randAlg implements IAlgorithm {
             }
             return randArray(array[0]);
         }
+
+        return 42;
+    }
+    @Override
+    public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
+
+
+        Collection input = (Collection)args.get("input");
+
+
        // byte[] imageByte = new byte[buffer.remaining()];
 
 
@@ -102,7 +117,7 @@ public class randAlg implements IAlgorithm {
         };
 
 
-        return  42;
+        return  createRand(input);
     }
 
 
