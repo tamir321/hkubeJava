@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-//{"url":"https://chandra.harvard.edu/graphics/resources/desktops/2006/crab_1680.jpg","returnImge":true}
+//{"url":"https://chandra.harvard.edu/graphics/resources/desktops/2006/crab_1680.jpg","returnImge":true,"red":true}
 //{"url":"https://tinyjpg.com/images/social/website.jpg","returnImge":"true"}
 public class ImageProcess implements IAlgorithm {
 
