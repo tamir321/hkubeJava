@@ -75,29 +75,34 @@ public class createBigArray implements IAlgorithm {
     }
     @Override
     public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
-
+        Thread.sleep(3000);
         String nodeName = (String) args.get("nodeName");
 
 
         Collection<Integer> input = (Collection<Integer>)args.get("input");
         // Integer[] Foo = input.toArray(new Integer[input.size()]);
-        List<Integer> newList = input.stream().collect(toList());
 
-        int argOne =(int)7;// input.get(0);
         // byte[] imageByte = new byte[buffer.remaining()];
-        if(nodeName == "one"){
+        if(nodeName.equals("one")){
+            List<Integer> newList = input.stream().collect(toList());
+
+            //int argOne =(int)7;// input.get(0);
+            int argOne =(int)newList.get(0);
             Random rd = new Random();
             byte[] arr = new byte[argOne];
             rd.nextBytes(arr);
             return arr;
         }
-        if(nodeName == "oneArray"){
-            int argTwo =(int) input.iterator().next();
+        if(nodeName.equals("onearray")){
+            List<Integer> newList = input.stream().collect(toList());
+            int argOne =(int)newList.get(0);// input.get(0);
+            int argTwo =(int) newList.get(1);
             Random rd = new Random();
-            byte[] arr = new byte[argOne];
+            ArrayList<byte[]> list = new ArrayList<>(argOne);
+            byte[] arr = new byte[argTwo];
             rd.nextBytes(arr);
-            ArrayList<byte[]> list = new ArrayList<>(argTwo);
-            for (int i = 0; i < argTwo; i++)
+
+            for (int i = 0; i < argOne; i++)
             {
                 list.add(arr);
             }
@@ -131,7 +136,7 @@ public class createBigArray implements IAlgorithm {
         };
 
 
-        return  createRand(input);
+        return input;
     }
 
 
