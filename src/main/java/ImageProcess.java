@@ -24,7 +24,9 @@ public class ImageProcess implements IAlgorithm {
     public void Init(Map args) {
 
     }
-
+    //{"url": "http://static.openimaj.org/media/tutorial/sinaface.jpg",
+    // "returnImge": "true",
+    // "red":"false"}
     @Override
     public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
       //  Map<String, Object> data = new HashMap<>();
@@ -33,8 +35,8 @@ public class ImageProcess implements IAlgorithm {
         Collection input = (Collection)args.get("input");
         Map inputData = (Map) input.iterator().next();
         String url = (String) inputData.get("url");
-        Boolean returnImge = (Boolean) inputData.get("returnImge") ;
-        Boolean red = (Boolean) inputData.get("red") ;
+        Boolean returnImge = Boolean.parseBoolean((String) inputData.get("returnImge")) ;
+        Boolean red = Boolean.parseBoolean((String) inputData.get("red")) ;
 
         results.put("imageURL", url);
         MBFImage image = ImageUtilities.readMBF(new URL(url)); //"http://static.openimaj.org/media/tutorial/sinaface.jpg"
