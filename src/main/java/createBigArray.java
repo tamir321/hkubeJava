@@ -75,7 +75,7 @@ public class createBigArray implements IAlgorithm {
     }
     @Override
     public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
-        Thread.sleep(3000);
+        
         String nodeName = (String) args.get("nodeName");
 
 
