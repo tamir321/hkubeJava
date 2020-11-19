@@ -75,7 +75,15 @@ public class createBigArray implements IAlgorithm {
     }
     @Override
     public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
-        Thread.sleep(3000);
+        System.out.print("\n\nbefore\n");
+        System.out.print("tota lheap " + Runtime.getRuntime().totalMemory()/(1024*1024)+ "\n");
+        System.out.print("free heap " + Runtime.getRuntime().freeMemory()/(1024*1024)+ "\n");
+        System.out.print("used heap " +(  Runtime.getRuntime().totalMemory() -Runtime.getRuntime().freeMemory())/(1024*1024)+ "\n");
+        System.gc();
+        System.out.print("\n\nafter\n");
+        System.out.print("tota lheap " + Runtime.getRuntime().totalMemory()/(1024*1024)+ "\n");
+        System.out.print("free heap " + Runtime.getRuntime().freeMemory()/(1024*1024)+ "\n");
+        System.out.print("used heap " +(  Runtime.getRuntime().totalMemory() -Runtime.getRuntime().freeMemory())/(1024*1024)+ "\n");
         String nodeName = (String) args.get("nodeName");
 
 
