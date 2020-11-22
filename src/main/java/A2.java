@@ -1,13 +1,11 @@
-import com.google.gson.Gson;
 import hkube.algo.wrapper.IAlgorithm;
 import hkube.api.IHKubeAPI;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
-
-import static java.util.stream.Collectors.toList;
-
-public class A1 implements IAlgorithm {
+public class A2 implements IAlgorithm {
 
     public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
 
@@ -19,7 +17,12 @@ public class A1 implements IAlgorithm {
 
        /// String act = (String)action.get("input");
         String result = "I am "+ nodeName +" I recived the following input-" + action;
-        return nodeName;
+        Map<String, String> articleMapOne = new HashMap<>();
+        articleMapOne.put("inp", result);
+        Object jnk =   hkubeAPI.startStoredPipeLine("amit",articleMapOne);
+        String out =  jnk.toString(); //get("response").get(0).get("result").
+        return result + " the result I got from amit pipeline was: " + out;
+       // return nodeName;
 
     }
 
