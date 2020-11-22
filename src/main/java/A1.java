@@ -19,7 +19,7 @@ public class A1 implements IAlgorithm {
 
        /// String act = (String)action.get("input");
         String result = "I am "+ nodeName +" I recived the following input-" + action;
-        return nodeName;
+        return result;
 
     }
 
