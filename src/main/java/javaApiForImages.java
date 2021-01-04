@@ -26,13 +26,15 @@ public class javaApiForImages implements IAlgorithm {
         String nodeName = (String) args.get("nodeName");
 
         Collection<Object> input = (Collection<Object>)args.get("input");
-
+        System.out.println("start test-size");
         Object aaaaa =   hkubeAPI.startStoredPipeLine("test-size",new HashMap());
        // Object bbbbb =  hkubeAPI.startStoredPipeLine("simple",new HashMap());
         Object aaa = ((Map)((List)((LinkedHashMap)aaaaa).get("response")).get(0)).get("result");
 
 
         byte[] bytes = (byte[]) ((Map)((List)aaa).get(0)).get("image");
+
+        System.out.println("test-size return array size:"+((List)aaa).size());
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         Iterator<?> readers = ImageIO.getImageReadersByFormatName("jpg");
 
