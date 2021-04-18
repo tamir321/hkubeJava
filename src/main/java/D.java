@@ -9,7 +9,7 @@ import java.util.Map;
 public class D implements IAlgorithm {
 
     public Object Start(Map args, IHKubeAPI hkubeAPI) throws Exception {
-
+        System.out.println("~~~Algorithm started ~~~");
 
 
         String nodeName = (String) args.get("nodeName");
@@ -17,14 +17,18 @@ public class D implements IAlgorithm {
         Iterator iterator = input.iterator();
         String inputAsString ="";
         while (iterator.hasNext()) {
+            System.out.println("~~~iterator.hasNext()~~~");
             Object action =  input.iterator().next();
             if (action instanceof  String){
+                System.out.println("~~~ if (action~~~");
                 inputAsString = inputAsString + action;
             }
             else if(action instanceof List){
+                System.out.println("~~~ else if~~~");
                 inputAsString = inputAsString + "[";
                 Iterator iterator1 = ((List)action).iterator();
                 while (iterator1.hasNext()){
+                    System.out.println("~~~iterator1.hasNext()~~~");
                     action =  input.iterator().next();
                     inputAsString = inputAsString + action;
                 }
