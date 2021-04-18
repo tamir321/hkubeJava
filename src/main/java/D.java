@@ -18,7 +18,7 @@ public class D implements IAlgorithm {
         String inputAsString ="";
         while (iterator.hasNext()) {
             System.out.println("~~~iterator.hasNext()~~~");
-            Object action =  input.iterator().next();
+            Object action =  iterator.next();
             if (action instanceof  String){
                 System.out.println("~~~ if (action~~~");
                 inputAsString = inputAsString + action;
@@ -29,7 +29,7 @@ public class D implements IAlgorithm {
                 Iterator iterator1 = ((List)action).iterator();
                 while (iterator1.hasNext()){
                     System.out.println("~~~iterator1.hasNext()~~~");
-                    action =  input.iterator().next();
+                    action =  iterator1.next();
                     inputAsString = inputAsString + action;
                 }
                 inputAsString = inputAsString + "]";
