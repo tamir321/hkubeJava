@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.*;
@@ -23,11 +24,12 @@ public class image implements IAlgorithm {
     @Override
     public Object Start(Map input, IHKubeAPI hkubeAPI) throws Exception {
         String fileName = "/hkube/algorithm-runner/algorithm_unique_folder/Chameleon.jpg";
-        File file = new File(fileName);
-        BufferedImage bImage = ImageIO.read(file);
+
+        InputStream stream = this.getClass().getClassLoader().getResourceAsStream("Chameleon.jpg");
+        BufferedImage bImage = ImageIO.read(stream);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(bImage, "jpg", bos );
-        byte [] data = bos.toByteArray();
+        ImageIO.write(bImage, "jpg", bos);
+        byte[] data = bos.toByteArray();
 
 
         int rng = (int) ((Map) ((List) input.get("input")).get(0)).get("rng");
@@ -47,15 +49,15 @@ public class image implements IAlgorithm {
         arrList.add(nodeName);
         msg.put("trace", arrList);
         msg.put("data", data);
-        msg.put("ping",0);
-        msg.put("last",false);
+        msg.put("ping", 0);
+        msg.put("last", false);
         while (active) {
             for (int c = 0; c < r; c++) {
-                    msg.put("id", ++sent);
-                    msg.put("time", new Date().getTime());
-                    hkubeAPI.sendMessage(msg, "analyze");
-                    hkubeAPI.sendMessage(msg);
-                    Thread.sleep(Math.round(1000/r));
+                msg.put("id", ++sent);
+                msg.put("time", new Date().getTime());
+                hkubeAPI.sendMessage(msg, "analyze");
+                hkubeAPI.sendMessage(msg);
+                Thread.sleep(Math.round(1000 / r));
             }
             i++;
             if (i % 60 == 0) {
@@ -63,10 +65,10 @@ public class image implements IAlgorithm {
                 System.out.println("z=" + z);
             }
             if (i % ping == 0) {
-                msg.put("ping", new Date().getTime()/1000);
+                msg.put("ping", new Date().getTime() / 1000.00);
                 hkubeAPI.sendMessage(msg, "analyze");
                 hkubeAPI.sendMessage(msg);
-                msg.put("ping",0);
+                msg.put("ping", 0);
             }
             if (i % 600 == 0) {
                 System.out.print("******** start burst ********");
@@ -84,7 +86,7 @@ public class image implements IAlgorithm {
                 System.out.print("======= end sleep ========");
             }
             if (sent > totalMsg) {
-                Thread.sleep( (Integer)sleepTime.get(1) * 1000);
+                Thread.sleep((Integer) sleepTime.get(1) * 1000);
                 active = false;
             }
 
