@@ -66,6 +66,7 @@ public class image implements IAlgorithm {
                 msg.put("ping", new Date().getTime());
                 hkubeAPI.sendMessage(msg, "analyze");
                 hkubeAPI.sendMessage(msg);
+                msg.put("ping",0);
             }
             if (i % 600 == 0) {
                 System.out.print("******** start burst ********");
