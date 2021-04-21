@@ -48,6 +48,7 @@ public class image implements IAlgorithm {
         msg.put("trace", arrList);
         msg.put("data", data);
         msg.put("ping",0);
+        msg.put("last",false);
         while (active) {
             for (int c = 0; c < r; c++) {
                     msg.put("id", ++sent);
@@ -62,7 +63,7 @@ public class image implements IAlgorithm {
                 System.out.println("z=" + z);
             }
             if (i % ping == 0) {
-                msg.put("ping", new Date().getTime());
+                msg.put("ping", new Date().getTime()/1000);
                 hkubeAPI.sendMessage(msg, "analyze");
                 hkubeAPI.sendMessage(msg);
                 msg.put("ping",0);
