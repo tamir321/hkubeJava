@@ -22,7 +22,7 @@ public class image implements IAlgorithm {
 
     @Override
     public Object Start(Map input, IHKubeAPI hkubeAPI) throws Exception {
-        String fileName = "Chameleon.jpg";
+        String fileName = "/hkube/algorithm-runner/algorithm_unique_folder/Chameleon.jpg";
         File file = new File(fileName);
         BufferedImage bImage = ImageIO.read(file);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
