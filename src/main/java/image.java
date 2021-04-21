@@ -57,7 +57,6 @@ public class image implements IAlgorithm {
                     Thread.sleep(Math.round(1000/r));
             }
             i++;
-            z += 1;
             if (i % 60 == 0) {
                 z += 1;
                 System.out.println("z=" + z);
