@@ -4,6 +4,10 @@ import hkube.api.IHKubeAPI;
 import hkube.api.INode;
 import org.json.JSONObject;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
@@ -31,6 +35,19 @@ public class javaApi implements IAlgorithm {
             String algName = (String) action.get("algName");
             List<String> listSource = (List<String>) action.get("alginput");
             Object jnk =  hkubeAPI.startAlgorithm(algName,listSource ,true);
+            return jnk;
+        }
+
+        if(act.equals("startAlgBinary")){
+            InputStream stream = this.getClass().getClassLoader().getResourceAsStream("Chameleon.jpg");
+            BufferedImage bImage = ImageIO.read(stream);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "jpg", bos);
+            byte[] data = bos.toByteArray();
+            //{"action":"startAlg","algName":"green-alg","alginput":[]}
+            String algName = (String) action.get("algName");
+            List<byte[]> list = Arrays.asList(data);
+            Object jnk =  hkubeAPI.startAlgorithm(algName,list ,true);
             return jnk;
         }
 
