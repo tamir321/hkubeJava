@@ -48,7 +48,7 @@ public class image implements IAlgorithm {
         List arrList = new ArrayList();
         arrList.add(nodeName);
         msg.put("trace", arrList);
-        msg.put("data", data);
+        msg.put("image", data);
         msg.put("ping", 0);
         msg.put("last", false);
         while (active) {
